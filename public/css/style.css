@@ -1,0 +1,90 @@
+h1 {
+    background-color: rgb(189, 187, 75);
+    font-family: 'Arial Light';
+    letter-spacing: 0.05em;
+    font-size: 33px;
+}
+
+#d1 {
+    margin-left: 5%;
+}
+
+.Section {
+    font-size: 23px;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.topic {
+    font-size: 23px;
+}
+
+#box {
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: 'Raleway';
+    font-size: 2.5rem;
+}
+
+.border {
+    border: 1px solid black;
+    position: relative;
+    border-radius: 3px;
+}
+
+.wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wrapper .file-upload {
+    height: 150px;
+    width: 150px;
+    border-radius: 100px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #FFFFFF;
+    overflow: hidden;
+    background-image: linear-gradient(to bottom, rgb(189, 187, 75) 50%, #FFFFFF 50%);
+    background-size: 50% 200%;
+    color: #FFFFFF;
+    font-size: 75px;
+}
+
+.wrapper .file-upload input[type='file'] {
+    height: 150px;
+    width: 150px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+#message {
+    font-size: 20px;
+    font-family: 'Gill Sans';
+}
+
+button {
+    padding: 10px 40px;
+    background: none;
+    border: none;
+    position: relative;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 2px;
+    border: 2px solid rgb(189, 187, 75);
+    cursor: pointer;
+}
+
+h4 {
+    font-size: 42px;
+    font-family: Tahoma;
+}

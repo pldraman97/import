@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>Add Candidates to Database</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="./css/style.css">
+    </head>
+
+    <body>
+
+        <h1>
+            Add From Excel
+        </h1>
+        <br>
+
+        <div class="Section">
+            <div class="topic">
+                Add Candidates to Database
+            </div>
+            <br>
+            <center>
+                <div class="border" id="#box">
+                    <br>
+
+                    <form action="/upload" enctype="multipart/form-data" method="post">
+                        <div class="wrapper">
+                            <div class="file-upload">
+                                <input type="file" id="file" name="uploadfile" title="Upload .xlsx or .xls file" onchange="return fileValidation()" accept='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel'>
+                                <i class="fa fa-arrow-up"></i>
+                            </div>
+                        </div>
+                        <p id="warning" style="color:red; visibility: hidden;">Oops! Invalid file format.</p>
+                        <div id="btn" style="visibility: hidden;">
+                            <button type="submit">Submit</button>
+                        </div>
+                    </form>
+                    <p id="message">Upload a .xlsx or .xls file here</p>
+                </div>
+            </center>
+        </div>
+
+        <script>
+            function fileValidation() {
+                var fileInput = document.getElementById('file');
+                var filePath = fileInput.value;
+                // Allowing file type 
+                var allowedExtensions = /(\.xlsx|\.xls)$/i;
+                if (!allowedExtensions.exec(filePath)) {
+                    document.getElementById("warning").style.visibility = "visible";
+                    document.getElementById("message").style.visibility = "hidden";
+                    fileInput.value = '';
+                    return false;
+                } else {
+                    document.getElementById("btn").style.visibility = "visible";
+                    document.getElementById("warning").style.visibility = "hidden";
+                    document.getElementById("message").style.visibility = "hidden";
+                }
+            }
+        </script>
+
+    </body>
+
+</html>
