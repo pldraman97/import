@@ -1,16 +1,15 @@
 const Person = require('../model/model');
 const excelToJson = require('convert-excel-to-json');
 const fs = require('fs');
-
+const async = require('async');
 
 exports.getall = async(req, res) => {
+    console.log(req.file.filename);
     importExcelData2MongoDB(process.cwd() + '/public/uploads/' + req.file.filename);
     res.render('success');
 }
 
-
 async function importExcelData2MongoDB(filePath) {
-
     console.log(filePath);
     let excelData;
     try {
@@ -36,32 +35,36 @@ async function importExcelData2MongoDB(filePath) {
                 }
             }]
         });
-
     } catch (error) {
         console.log(error);
     }
 
-    console.log(excelData);
-
     const dataToInsert = excelData['Sheet1'];
+    //return console.log(dataToInsert);
+
     try {
-        await dataToInsert.forEach(async(row) => {
-            const newPerson = new Person(row);
-            await newPerson.save((err, data) => {
+        async.eachSeries(dataToInsert, async function(e, cb) {
+                let oldPerson = await Person.findOne({ email: e.email });
+                if (oldPerson) {
+                    console.log("Duplicate Record");
+                } else {
+                    const newPerson = new Person(e);
+                    // console.log(newPerson);
+                    await newPerson.save();
+                }
+
+                return cb();
+            },
+            function(err) {
                 if (err) {
-                    // console.log(err);
-                    if (err.name === 'ValidationError')
-                        console.log("Validation error");
-                    else if (err.code && err.code == 11000)
-                        console.log("Duplicate Key Error");
-                    else
-                        console.log("Internal Server Error");
+                    console.log(err.message);
+                } else {
+                    console.log("Successfully Added");
                 }
             });
-        })
     } catch (error) {
-
+        console.log(error);
     }
-    fs.unlinkSync(filePath);
 
+    fs.unlinkSync(filePath);
 }
