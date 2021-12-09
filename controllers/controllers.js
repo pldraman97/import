@@ -4,7 +4,6 @@ const fs = require('fs');
 const async = require('async');
 
 exports.getall = async(req, res) => {
-    console.log(req.file.filename);
     importExcelData2MongoDB(process.cwd() + '/public/uploads/' + req.file.filename);
     res.render('success');
 }
@@ -40,7 +39,6 @@ async function importExcelData2MongoDB(filePath) {
     }
 
     const dataToInsert = excelData['Sheet1'];
-    //return console.log(dataToInsert);
 
     try {
         async.eachSeries(dataToInsert, async function(e, cb) {
@@ -49,7 +47,6 @@ async function importExcelData2MongoDB(filePath) {
                     console.log("Duplicate Record");
                 } else {
                     const newPerson = new Person(e);
-                    // console.log(newPerson);
                     await newPerson.save();
                 }
 
